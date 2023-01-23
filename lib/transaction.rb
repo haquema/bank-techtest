@@ -8,14 +8,11 @@ class Transaction
   end
   
   def format
-    return "#{@date} || #{@amount}.00 || || "
+    if @type == "credit"
+      return "#{@date} || #{@amount}.00 || || "
+    else
+      return "#{@date} || || #{@amount}.00 || "
+    end
   end
 
 end
-
-
-# if @type == "credit"
-#   return "#{@date} || #{amount} || || "
-# else
-#   return "#{@date} || ||  #{amount} || "
-# end
