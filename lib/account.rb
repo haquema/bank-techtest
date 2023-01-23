@@ -14,15 +14,8 @@ class Account
     if @transactions.empty? 
       return "There's no transactions to display"
     else
-      statement = ""
-      balance = @balance
       sorted = sort_transactions(@transactions)
-      sorted.each do |transaction|
-        statement += "\n#{transaction.format} #{balance}.00"
-        balance -= transaction.amount
-      end
-
-      return statement_header + statement
+      return statement_header + statement_generator(sorted)
     end
   end
 
@@ -32,9 +25,19 @@ class Account
     return "date || credit || debit || balance"
   end
 
-  def sort_transactions(array)
-    array.sort_by(&:date).reverse
+  def sort_transactions(transactions_array)
+    transactions_array.sort_by(&:date).reverse
   end
-      
+
+  def statement_generator(sorted_transactions_array)
+    statement = ""
+    balance = @balance
+    sorted_transactions_array.each do |transaction|
+      statement += "\n#{transaction.format} #{balance}.00"
+      balance -= transaction.amount
+    end
+
+    return statement
+  end 
 
 end
