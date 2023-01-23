@@ -14,7 +14,7 @@ RSpec.describe Transaction do
     it "returns a string in the expected format for a statement" do
       transaction = Transaction.new("credit", "01/01/2023", 1000)
       result = transaction.format
-      expect(result).to eq "01/01/2023 || 1000.00 || || "
+      expect(result).to eq "01/01/2023 || 1000.00 || ||"
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Transaction do
     it "returns a string in the expected format for a statement" do
       transaction = Transaction.new("credit", "02/01/2023", 2000)
       result = transaction.format
-      expect(result).to eq "02/01/2023 || 2000.00 || || "
+      expect(result).to eq "02/01/2023 || 2000.00 || ||"
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Transaction do
     it "returns a string in the expected format for a statement" do
       transaction = Transaction.new("debit", "01/01/2023", 1000)
       result = transaction.format
-      expect(result).to eq "01/01/2023 || || 1000.00 || "
+      expect(result).to eq "01/01/2023 || || 1000.00 ||"
     end
   end
 
