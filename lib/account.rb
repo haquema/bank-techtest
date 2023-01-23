@@ -1,11 +1,8 @@
 class Account
-  def initialize(type, date, amount)
-    @type = type
-    @date = date
-    @amount = amount
+
+
+  def print_statement
+    return "There's no transactions to display"
   end
-
-  
-
 
 end
