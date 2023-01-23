@@ -8,7 +8,7 @@ class Transaction
   end
   
   def format
-    return "01/01/2023 || 1000.00 || || "
+    return "#{@date} || #{@amount}.00 || || "
   end
 
 end
