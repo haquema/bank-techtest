@@ -9,4 +9,12 @@ RSpec.describe Transaction do
       expect(transaction.amount).to eq 1000
     end
   end
+
+  context "when the format method is called" do
+    it "returns a string in the expected format for a statement" do
+      transaction = Transaction.new("credit", "01/01/2023", 1000)
+      result = transaction.format
+      expect(result).to eq "01/01/2023 || 1000.00 || || "
+    end
+  end
 end

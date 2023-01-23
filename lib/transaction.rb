@@ -6,6 +6,16 @@ class Transaction
     @date = date
     @amount = amount
   end
-
   
+  def format
+    return "01/01/2023 || 1000.00 || || "
+  end
+
 end
+
+
+# if @type == "credit"
+#   return "#{@date} || #{amount} || || "
+# else
+#   return "#{@date} || ||  #{amount} || "
+# end
