@@ -22,7 +22,7 @@ class Account
   def print_statement
     return "There are no transactions to display" if @transactions.empty? 
     sorted = sort_transactions(@transactions)
-    return statement_header + statement_generator(sorted)
+    print statement_header + statement_generator(sorted)
   end
 
 
