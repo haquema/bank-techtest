@@ -11,6 +11,7 @@ class Account
   end
 
   def withdraw(date, amount)
+    fail "You cannot withdraw when balance is zero!" unless @balance > 0
     transaction = Transaction.new("debit", date, amount)
     @transactions << transaction
     @balance -= transaction.amount
@@ -25,8 +26,6 @@ class Account
       return statement_header + statement_generator(sorted)
     end
   end
-
-
 
 
 

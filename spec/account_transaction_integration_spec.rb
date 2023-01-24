@@ -41,6 +41,13 @@ RSpec.describe "integration" do
       expect(result).to eq "date || credit || debit || balance\n04/01/2023 || || 500.00 || 500.00\n01/01/2023 || 1000.00 || || 1000.00"
     end
   end
+
+  context "when balance is zero withdrawal transaction is recorded" do
+    it "fails and returns appropriate error message" do
+      my_account = Account.new
+      expect { my_account.withdraw("04/01/2023", 1000) }.to raise_error "You cannot withdraw when balance is zero!"
+    end
+  end
   
 
 end
