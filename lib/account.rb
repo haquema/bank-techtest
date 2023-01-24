@@ -10,14 +10,31 @@ class Account
     @balance += transaction.amount
   end
 
+  def withdraw(date, amount)
+    transaction = Transaction.new("debit", date, amount)
+    @transactions << transaction
+    @balance -= transaction.amount
+  end
+
+
   def print_statement
     if @transactions.empty? 
-      return "There's no transactions to display"
+      return "There are no transactions to display"
     else
       sorted = sort_transactions(@transactions)
       return statement_header + statement_generator(sorted)
     end
   end
+
+
+
+
+
+
+
+
+
+
 
   private
 
@@ -34,7 +51,11 @@ class Account
     balance = @balance
     sorted_transactions_array.each do |transaction|
       statement += "\n#{transaction.format} #{balance}.00"
-      balance -= transaction.amount
+      if transaction.type == "credit" 
+        balance -= transaction.amount
+      else 
+        balance += transaction.amount
+      end
     end
 
     return statement
