@@ -1,30 +1,28 @@
 class Account
-  def initialize
-    @transactions = []
-    @balance = 0
+  def initialize 
+    @transactions = [] # set up an array to keep track of transactions
+    @balance = 0 # set up an instance variable to keep track of the account balance
   end
 
   def deposit(date, amount)
     transaction = Transaction.new("credit", date, amount)
     @transactions << transaction
-    @balance += transaction.amount
+    @balance += transaction.amount 
   end
 
+  # method will first check if withdraw request will take balance into negative
+  # and return the error message if it is the case
   def withdraw(date, amount)
-    fail "You cannot withdraw when balance is zero!" unless @balance > 0
+    raise error_message if (@balance - amount).negative? 
     transaction = Transaction.new("debit", date, amount)
     @transactions << transaction
     @balance -= transaction.amount
   end
 
-
   def print_statement
-    if @transactions.empty? 
-      return "There are no transactions to display"
-    else
-      sorted = sort_transactions(@transactions)
-      return statement_header + statement_generator(sorted)
-    end
+    return "There are no transactions to display" if @transactions.empty? 
+    sorted = sort_transactions(@transactions)
+    return statement_header + statement_generator(sorted)
   end
 
 
@@ -36,6 +34,9 @@ class Account
 
 
   private
+  def error_message
+    return "There isn't enough money in the account to process this withdrawal"
+  end
 
   def statement_header
     return "date || credit || debit || balance"
