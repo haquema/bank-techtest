@@ -49,7 +49,7 @@ RSpec.describe Balance do
     end
 
     context "when given a withdrawal transaction" do
-      xit "updates balance correctly with amount" do
+      it "updates balance correctly with amount" do
         balance = Balance.new
         fake_transaction = double(:fake_transaction, type: 'credit', amount: 300)
         fake_transaction_2 = double(:fake_transaction_2, type: 'debit', amount: 200)
@@ -57,6 +57,30 @@ RSpec.describe Balance do
         balance.update(fake_transaction_2)
         expected = balance.display
         expect(expected).to eq('Your balance is £100.00')
+      end
+    end
+
+    context "when given a a mixture of transactions" do
+      it "updates balance correctly" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 300)
+        fake_transaction_2 = double(:fake_transaction_2, type: 'debit', amount: 200)
+        fake_transaction_3 = double(:fake_transaction_2, type: 'credit', amount: 400)
+        balance.update(fake_transaction)
+        balance.update(fake_transaction_2)
+        balance.update(fake_transaction_3)
+        expected = balance.display
+        expect(expected).to eq('Your balance is £500.00')
+      end
+    end    
+
+    context "when a withdrawal will take balance in to negative" do
+      it "fails and returns appropriate error message" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 300)
+        fake_transaction_2 = double(:fake_transaction_2, type: 'debit', amount: 350)
+        balance.update(fake_transaction)
+        expect { balance.update(fake_transaction_2) }.to raise_error "This transaction will put you into overdraft!"
       end
     end    
   end

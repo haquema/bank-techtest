@@ -5,7 +5,10 @@ class Balance
   end
 
   def update(transaction)
-    @balance += transaction.amount
+    bool = (transaction.type == 'debit' && (@balance - transaction.amount).negative?)
+    raise "This transaction will put you into overdraft!" if bool
+    @balance += transaction.amount if transaction.type =='credit'
+    @balance -= transaction.amount if transaction.type =='debit'
   end
 
   def transaction_balance
