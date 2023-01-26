@@ -1,5 +1,6 @@
 class Balance
   def initialize(starting_balance = 0)
+    raise "Starting balance cannot be negative" if starting_balance.negative?
     @balance = starting_balance
   end
 
