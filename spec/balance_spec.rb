@@ -86,26 +86,43 @@ RSpec.describe Balance do
   end
 
   describe "#transaction_balance" do
-    it "returns the correct transactional balance after a single deposit" do
-      balance = Balance.new
-      fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
-      balance.update(fake_transaction)
-      result = balance.transaction_balance(fake_transaction)
-      expect(result).to eq(300)
-    end
-    
-    it "returns the correct transactional balance after two deposits" do
-      balance = Balance.new
-      fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
-      fake_transaction_2 = double(:fake_transaction_2, date: '01/01/2023', type: 'credit', amount: 300)
-      balance.update(fake_transaction)
-      balance.update(fake_transaction_2)
-      result_1 = balance.transaction_balance(fake_transaction)
-      result_2 = balance.transaction_balance(fake_transaction_2)
-      expect(result_1).to eq(300)
-      expect(result_2).to eq(600)
-    end
+    context "when recording deposits" do
+      it "returns the correct transactional balance after a single deposit" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
+        balance.update(fake_transaction)
+        result = balance.transaction_balance(fake_transaction)
+        expect(result).to eq(300)
+      end
+      
+      it "returns the correct transactional balance after two deposits" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
+        fake_transaction_2 = double(:fake_transaction_2, date: '02/01/2023', type: 'credit', amount: 300)
+        balance.update(fake_transaction)
+        balance.update(fake_transaction_2)
+        result_1 = balance.transaction_balance(fake_transaction)
+        result_2 = balance.transaction_balance(fake_transaction_2)
+        expect(result_1).to eq(300)
+        expect(result_2).to eq(600)
+      end
 
+      it "returns the correct transactional balance after three deposits" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
+        fake_transaction_2 = double(:fake_transaction_2, date: '02/01/2023', type: 'credit', amount: 300)
+        fake_transaction_3 = double(:fake_transaction_3, date: '03/01/2023', type: 'credit', amount: 300)
+        balance.update(fake_transaction)
+        balance.update(fake_transaction_2)
+        balance.update(fake_transaction_3)
+        result_1 = balance.transaction_balance(fake_transaction)
+        result_2 = balance.transaction_balance(fake_transaction_2)
+        result_3 = balance.transaction_balance(fake_transaction_3)
+        expect(result_1).to eq(300)
+        expect(result_2).to eq(600)
+        expect(result_3).to eq(900)
+      end
+    end
   end
 
 end
