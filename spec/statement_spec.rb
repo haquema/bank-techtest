@@ -5,6 +5,20 @@ require 'statement'
 
 
 RSpec.describe Statement do
+
+  describe "#generate" do
+    context "when initialised with a balance of one deposit" do
+      it "returns a correctly formatted statement" do
+        fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
+        fake_balance = double(:fake_balance, display: 300, transactions: [fake_transaction])
+        statement = Statement.new(fake_balance)
+        line_1 = '01/01/2023 || 1000.00 || || 1000.00'
+        expectation = expect { my_account.print_statement } 
+        expectation.to output(include(header, line_1)).to_stdout
+      end
+    end
+  end
+
   describe "#transaction_balance" do
     it "returns the correct transactional balance after a single deposit" do
       fake_transaction = double(:fake_transaction, date: '01/01/2023', type: 'credit', amount: 300)
