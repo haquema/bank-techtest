@@ -8,13 +8,5 @@ class Transaction
     @amount = amount
     @id = nil
   end
-  
-  def format
-    if @type == "credit"
-      return "#{@date} || #{@amount}.00 || ||"
-    else
-      return "#{@date} || || #{@amount}.00 ||"
-    end
-  end
 
 end
