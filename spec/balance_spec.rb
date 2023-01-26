@@ -21,19 +21,43 @@ RSpec.describe Balance do
     context "when given a deposit transaction" do
       it "updates balance correctly with a given amount" do
         balance = Balance.new
-        fake_transaction = double(:fake_transaction, amount: 100)
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 100)
         balance.update(fake_transaction)
         expected = balance.display
         expect(expected).to eq('Your balance is £100.00')
       end
 
-      it "updates balance correctly with another amount" do
+      it "updates balance correctly for a different value transaction" do
         balance = Balance.new
-        fake_transaction = double(:fake_transaction, amount: 200)
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 200)
         balance.update(fake_transaction)
         expected = balance.display
         expect(expected).to eq('Your balance is £200.00')
       end
     end
+
+    context "when given multiple deposit transactions" do
+      it "updates balance correctly" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 200)
+        fake_transaction_2 = double(:fake_transaction_2, type: 'credit', amount: 300)
+        balance.update(fake_transaction)
+        balance.update(fake_transaction_2)
+        expected = balance.display
+        expect(expected).to eq('Your balance is £500.00')
+      end
+    end
+
+    context "when given a withdrawal transaction" do
+      xit "updates balance correctly with amount" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 300)
+        fake_transaction_2 = double(:fake_transaction_2, type: 'debit', amount: 200)
+        balance.update(fake_transaction)
+        balance.update(fake_transaction_2)
+        expected = balance.display
+        expect(expected).to eq('Your balance is £100.00')
+      end
+    end    
   end
 end
