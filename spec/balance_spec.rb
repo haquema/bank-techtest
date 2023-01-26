@@ -84,4 +84,17 @@ RSpec.describe Balance do
       end
     end    
   end
+
+  describe "#transaction_balance" do
+    context "when there is one deposit" do
+      it "returns the correct balance after transaction" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, type: 'credit', amount: 300)
+        balance.update(fake_transaction)
+        result = balance.transaction_balance(fake_transaction)
+        expect(result).to eq(300)
+      end
+    end
+  end
+
 end
