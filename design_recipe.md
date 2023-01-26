@@ -20,26 +20,29 @@ focus on the details you see as important, not everything. The diagram below
 uses asciiflow.com but you could also use excalidraw.com, draw.io, or miro.com_
 
 ```
-┌────────────────────────────────┐
-│ Account                        │
-│                                │
-│ -initialize                    │
-│ -deposit                       │
-│ -withdraw                      │
-│ -print_statement               │
-└─────────────┬──────────────────┘
-              │
-              │  Account contains a list of transactions
-              │
-┌─────────────▼──────────────────┐
-│  Transaction                   │
-│                                │
-│  -initialize                   │
-│  -type                         │
-│  -date                         │
-│  -amount                       │
-│  -statement_formatter          │
-└────────────────────────────────┘
+                                          ┌────────────────────────────────┐
+                                          │ Account                        │
+                                          │                                │
+                                          │ -initialize                    │
+                ┌─────────────────────────┤ -deposit                       ├──────────────────────┐
+                │                         │ -withdraw                      │                      │
+                │                         │ -print_statement               │                      │
+                │                         └─────────────┬──────────────────┘                      │
+                │                                       │                                         │
+                │                                       │                                         │
+                │                                       │                                         │
+┌───────────────▼─────────────────┐       ┌─────────────▼──────────────────┐      ┌───────────────▼───────────────┐
+│  Balance                        │       │  Transaction                   │      │  Statement                    │
+│  -initialize                   │       │                                │      │                               │
+│  -update                        │       │  -initialize                   │      │  -initialize                  │
+│  -current                       │       │   -type                        │      │  -format                      │
+│                                 │       │   -date                        │      │                               │
+│                                 │       │   -amount                      │      │                               │
+│                                 │       │                                │      │                               │
+└─────────────────────────────────┘       └────────────────────────────────┘      └───────────────────────────────┘
+  This class will be used to track          This class will only be used           This class will be used to format
+  changes in balance and print              to store data about a                  transactions for printing
+  current balance                           transaction
 ```
 
 _Also design the interface of each class in more detail._
@@ -48,10 +51,11 @@ _Also design the interface of each class in more detail._
 class Account
   def initialize
     # takes no arguments and returns nothing
+    # set up new balance class to store transactions
   end
 
   def deposit(date, amount)
-    # creates a new transaction and records the deposit details
+    # creates a new deposit transaction and update balance class
     # takes two arguments
     # date is a string in the format dd/mm/yyyy
     # amount is a positive integer
@@ -59,7 +63,7 @@ class Account
   end
 
   def withdraw(date, amount)
-    # creates a new transaction and records the withdrawal details
+    # creates a new withdrawal transaction and update balance class
     # takes two arguments
     # date is a string in the format dd/mm/yyyy
     # amount is a positive integer
@@ -68,7 +72,8 @@ class Account
   
   def print_statement
     # takes no arguments
-    # returns a multi line string of all transactions recorded
+    # create a new statement object and call the format method on it
+    # print statement
   end
 end
 
@@ -81,9 +86,38 @@ class Track
     #stores the arguments in appropriate instance variables
   end
 
-  def statement_formatter
-    # returns a string to be outputted when statement is printed
+end
+
+class Balance
+
+  attr_reader :balance
+
+  def initialize(starting_balance)
+    # takes one argument
+    # sets up a list to store all transactions
+    # sets up a balance variable to track current balance
   end
+
+  def update(transaction)
+    # takes a transaction object as an argument
+    # stores it in list and updates balance
+  end
+  
+end
+
+class Statement
+
+  attr_reader :statement
+
+  def initialize(starting_balance)
+    # sets up instance variable to store statement
+  end
+
+  def generate(balance)
+    # takes a balance object as an argument
+    # formats transactions to generate output lines for printing statement
+  end
+  
 end
 ```
 
