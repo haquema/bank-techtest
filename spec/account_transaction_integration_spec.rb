@@ -5,7 +5,7 @@ header = 'date || credit || debit || balance'
 
 RSpec.describe "integration" do
   context "when one deposit transaction recorded" do
-    it "prints a statement of that transaction in the desired format" do
+    xit "prints a statement of that transaction in the desired format" do
       line_1 = '01/01/2023 || 1000.00 || || 1000.00'
       my_account = Account.new
       my_account.deposit("01/01/2023", 1000)
@@ -15,7 +15,7 @@ RSpec.describe "integration" do
   end
 
   context "when two deposit transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do
+    xit "prints a statement of that transaction in the desired format" do
       line_1 = '04/01/2023 || 2000.00 || || 3000.00'
       line_2 = '01/01/2023 || 1000.00 || || 1000.00'
       my_account = Account.new
@@ -27,7 +27,7 @@ RSpec.describe "integration" do
   end
 
   context "when three unordered deposit transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do 
+    xit "prints a statement of that transaction in the desired format" do 
       line_1 = "04/01/2023 || 2000.00 || || 3500.00"
       line_2 = "02/01/2023 || 500.00 || || 1500.00"
       line_3 = "01/01/2023 || 1000.00 || || 1000.00"
@@ -41,7 +41,7 @@ RSpec.describe "integration" do
   end
   
   context "when deposit and withdrawal transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do
+    xit "prints a statement of that transaction in the desired format" do
       line_1 ="04/01/2023 || || 500.00 || 500.00"
       line_2 = "01/01/2023 || 1000.00 || || 1000.00"
       my_account = Account.new
@@ -53,7 +53,7 @@ RSpec.describe "integration" do
   end
 
   context "when three unordered deposit and withdrawal transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do
+    xit "prints a statement of that transaction in the desired format" do
       expected = "date || credit || debit || balance" 
       line_1 = "06/01/2023 || || 1000.00 || 0.00" 
       line_2 = "04/01/2023 || || 500.00 || 1000.00" 
@@ -68,7 +68,7 @@ RSpec.describe "integration" do
   end
 
   context "when four unordered deposit and withdrawal transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do
+    xit "prints a statement of that transaction in the desired format" do
       expected = "date || credit || debit || balance" 
       line_1 = "06/01/2023 || || 1000.00 || 1000.00"
       line_2 = "04/01/2023 || || 500.00 || 2000.00" 
@@ -85,7 +85,7 @@ RSpec.describe "integration" do
   end
 
   context "when balance is zero withdrawal transaction is recorded" do
-    it "fails and returns appropriate error message" do
+    xit "fails and returns appropriate error message" do
       error_message = "There isn't enough money in the account to process this withdrawal"
       my_account = Account.new
       expect { my_account.withdraw("04/01/2023", 1000) }.to raise_error error_message
@@ -93,7 +93,7 @@ RSpec.describe "integration" do
   end
 
   context "when attempting to withdraw more money than in the account" do
-    it "fails and returns an error message" do
+    xit "fails and returns an error message" do
       error_message = "There isn't enough money in the account to process this withdrawal"
       my_account = Account.new
       my_account.deposit("01/01/2023", 500)

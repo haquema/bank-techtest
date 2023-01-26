@@ -109,12 +109,12 @@ class Statement
 
   attr_reader :statement
 
-  def initialize(starting_balance)
+  def initialize(balance)
+    # takes a balance object as an argument
     # sets up instance variable to store statement
   end
 
-  def generate(balance)
-    # takes a balance object as an argument
+  def generate()
     # formats transactions to generate output lines for printing statement
   end
   
