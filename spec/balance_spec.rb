@@ -4,12 +4,12 @@ RSpec.describe Balance do
   context "upon initialisation" do
     it "returns displays balance correctly when given a positive starting balance" do
       balance = Balance.new(1000)
-      expect(balance.display).to eq('Your balance is £1000.00')
+      expect(balance.display).to eq(1000)
     end
 
     it "returns a zero balance when no argument is given" do
       balance = Balance.new
-      expect(balance.display).to eq('Your balance is £0.00')
+      expect(balance.display).to eq(0)
     end
 
     it "fails when given a negative starting balance" do
@@ -24,7 +24,7 @@ RSpec.describe Balance do
         fake_transaction = double(:fake_transaction, type: 'credit', amount: 100)
         balance.update(fake_transaction)
         expected = balance.display
-        expect(expected).to eq('Your balance is £100.00')
+        expect(expected).to eq(100)
       end
 
       it "updates balance correctly for a different value transaction" do
@@ -32,7 +32,7 @@ RSpec.describe Balance do
         fake_transaction = double(:fake_transaction, type: 'credit', amount: 200)
         balance.update(fake_transaction)
         expected = balance.display
-        expect(expected).to eq('Your balance is £200.00')
+        expect(expected).to eq(200)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe Balance do
         balance.update(fake_transaction)
         balance.update(fake_transaction_2)
         expected = balance.display
-        expect(expected).to eq('Your balance is £500.00')
+        expect(expected).to eq(500)
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Balance do
         balance.update(fake_transaction)
         balance.update(fake_transaction_2)
         expected = balance.display
-        expect(expected).to eq('Your balance is £100.00')
+        expect(expected).to eq(100)
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe Balance do
         balance.update(fake_transaction_2)
         balance.update(fake_transaction_3)
         expected = balance.display
-        expect(expected).to eq('Your balance is £500.00')
+        expect(expected).to eq(500)
       end
     end    
 
