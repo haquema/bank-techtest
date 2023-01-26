@@ -1,9 +1,9 @@
 class Balance
-  def initialize(starting_balance)
+  def initialize(starting_balance = 0)
     @balance = starting_balance
   end
 
   def display
-    return "Your balance is £1000.00"
+    return "Your balance is £#{@balance}.00"
   end
 end
