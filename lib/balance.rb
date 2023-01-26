@@ -4,6 +4,14 @@ class Balance
     @balance = starting_balance
   end
 
+  def update(transaction)
+    @balance += 100
+  end
+
+  def transaction_balance
+
+  end
+
   def display
     return "Your balance is £#{@balance}.00"
   end

@@ -16,4 +16,16 @@ RSpec.describe Balance do
       expect { balance = Balance.new(-100) }.to raise_error "Starting balance cannot be negative"
     end
   end
+
+  describe '#update' do
+    context "when given a deposit transaction" do
+      it "updates the balance correctly" do
+        balance = Balance.new
+        fake_transaction = double(:fake_transaction, amount: 100)
+        balance.update(fake_transaction)
+        expected = balance.display
+        expect(expected).to eq('Your balance is £100.00')
+      end
+    end
+  end
 end
