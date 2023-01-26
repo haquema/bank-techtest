@@ -1,86 +1,86 @@
 require "account"
 require "transaction"
 
+header = 'date || credit || debit || balance'
+
 RSpec.describe "integration" do
   context "when one deposit transaction recorded" do
     it "prints a statement of that transaction in the desired format" do
+      line_1 = '01/01/2023 || 1000.00 || || 1000.00'
       my_account = Account.new
       my_account.deposit("01/01/2023", 1000)
-      result = my_account.print_statement
-      expect(result).to eq "date || credit || debit || balance\n01/01/2023 || 1000.00 || || 1000.00"
+      expectation = expect { my_account.print_statement } 
+      expectation.to output(include(header, line_1)).to_stdout
     end
   end
 
   context "when two deposit transactions recorded" do
     it "prints a statement of that transaction in the desired format" do
-      expected = "date || credit || debit || balance" + 
-                 "\n04/01/2023 || 2000.00 || || 3000.00" +
-                 "\n01/01/2023 || 1000.00 || || 1000.00"
+      line_1 = '04/01/2023 || 2000.00 || || 3000.00'
+      line_2 = '01/01/2023 || 1000.00 || || 1000.00'
       my_account = Account.new
       my_account.deposit("01/01/2023", 1000)
       my_account.deposit("04/01/2023", 2000)
-      result = my_account.print_statement
-      expect(result).to eq expected
+      expectation = expect { my_account.print_statement }      
+      expectation.to output(include(header, line_1, line_2)).to_stdout
     end
   end
 
   context "when three unordered deposit transactions recorded" do
-    it "prints a statement of that transaction in the desired format" do
-      expected = "date || credit || debit || balance" + 
-                 "\n04/01/2023 || 2000.00 || || 3500.00" +
-                 "\n02/01/2023 || 500.00 || || 1500.00" +
-                 "\n01/01/2023 || 1000.00 || || 1000.00"
+    it "prints a statement of that transaction in the desired format" do 
+      line_1 = "04/01/2023 || 2000.00 || || 3500.00"
+      line_2 = "02/01/2023 || 500.00 || || 1500.00"
+      line_3 = "01/01/2023 || 1000.00 || || 1000.00"
       my_account = Account.new
       my_account.deposit("04/01/2023", 2000)
       my_account.deposit("01/01/2023", 1000)
       my_account.deposit("02/01/2023", 500)
-      result = my_account.print_statement
-      expect(result).to eq expected
+      expectation = expect { my_account.print_statement }      
+      expectation.to output(include(header, line_1, line_2, line_3)).to_stdout
     end
   end
   
   context "when deposit and withdrawal transactions recorded" do
     it "prints a statement of that transaction in the desired format" do
-      expected = "date || credit || debit || balance" + 
-                 "\n04/01/2023 || || 500.00 || 500.00" +
-                 "\n01/01/2023 || 1000.00 || || 1000.00"
+      line_1 ="04/01/2023 || || 500.00 || 500.00"
+      line_2 = "01/01/2023 || 1000.00 || || 1000.00"
       my_account = Account.new
       my_account.deposit("01/01/2023", 1000)
       my_account.withdraw("04/01/2023", 500)
-      result = my_account.print_statement
-      expect(result).to eq expected
+      expectation = expect { my_account.print_statement }      
+      expectation.to output(include(header, line_1, line_2)).to_stdout
     end
   end
 
   context "when three unordered deposit and withdrawal transactions recorded" do
     it "prints a statement of that transaction in the desired format" do
-      expected = "date || credit || debit || balance" + 
-                 "\n06/01/2023 || || 1000.00 || 0.00" +
-                 "\n04/01/2023 || || 500.00 || 1000.00" +
-                 "\n01/01/2023 || 1500.00 || || 1500.00"
+      expected = "date || credit || debit || balance" 
+      line_1 = "06/01/2023 || || 1000.00 || 0.00" 
+      line_2 = "04/01/2023 || || 500.00 || 1000.00" 
+      line_3 = "01/01/2023 || 1500.00 || || 1500.00"
       my_account = Account.new
       my_account.deposit("01/01/2023", 1500)
       my_account.withdraw("06/01/2023", 1000)
       my_account.withdraw("04/01/2023", 500)
-      result = my_account.print_statement
-      expect(result).to eq expected
+      expectation = expect { my_account.print_statement }      
+      expectation.to output(include(header, line_1, line_2, line_3)).to_stdout
     end
   end
 
   context "when four unordered deposit and withdrawal transactions recorded" do
     it "prints a statement of that transaction in the desired format" do
-      expected = "date || credit || debit || balance" + 
-                 "\n06/01/2023 || || 1000.00 || 1000.00" +
-                 "\n04/01/2023 || || 500.00 || 2000.00" +
-                 "\n02/01/2023 || 1000.00 || || 2500.00" +
-                 "\n01/01/2023 || 1500.00 || || 1500.00"
+      expected = "date || credit || debit || balance" 
+      line_1 = "06/01/2023 || || 1000.00 || 1000.00"
+      line_2 = "04/01/2023 || || 500.00 || 2000.00" 
+      line_3 = "02/01/2023 || 1000.00 || || 2500.00" 
+      line_4 = "01/01/2023 || 1500.00 || || 1500.00"
       my_account = Account.new
       my_account.deposit("01/01/2023", 1500)
       my_account.withdraw("06/01/2023", 1000)
       my_account.withdraw("04/01/2023", 500)
       my_account.deposit("02/01/2023", 1000)
-      result = my_account.print_statement
-      expect(result).to eq expected
+      expectation = expect { my_account.print_statement }      
+      expectation.to output(include(header, line_1, line_2, line_3, line_4)).to_stdout
     end
   end
 
