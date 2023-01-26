@@ -5,7 +5,7 @@ class Balance
   end
 
   def update(transaction)
-    @balance += 100
+    @balance += transaction.amount
   end
 
   def transaction_balance
