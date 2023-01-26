@@ -6,7 +6,6 @@ class Transaction
     @type = type
     @date = date
     @amount = amount
-    @id = nil
   end
 
 end

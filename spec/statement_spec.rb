@@ -1,8 +1,7 @@
 require 'statement'
 
 
-
-
+header = 'date || credit || debit || balance'
 
 RSpec.describe Statement do
 
@@ -13,7 +12,7 @@ RSpec.describe Statement do
         fake_balance = double(:fake_balance, display: 300, transactions: [fake_transaction])
         statement = Statement.new(fake_balance)
         line_1 = '01/01/2023 || 1000.00 || || 1000.00'
-        expectation = expect { my_account.print_statement } 
+        expectation = expect { statement.generate } 
         expectation.to output(include(header, line_1)).to_stdout
       end
     end
